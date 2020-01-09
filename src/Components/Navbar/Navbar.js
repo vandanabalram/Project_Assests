@@ -3,23 +3,14 @@ import "./Navbar.css";
 import logo from './images1.jpg';
 import Modal from 'react-modal';
 import RegisterPage from '../RegisterPage/RegisterPage'
-
-import BrowserHistory from '../Utils/BrowserHistory';
+import LoginPage from '../LoginPage/LoginPage';
+import '../Utils/BrowserHistory';
+import BrowerHistory from '../Utils/BrowserHistory'; 
 class Navbar extends Component {
-  constructor() {
-    super();
- 
-    this.state = {
-      modalIsOpen: false
-    };
-  }
-
-  openModal=()=> {
-    this.setState({modalIsOpen: true});
-  }
-  closeModal=()=> {
-    this.setState({modalIsOpen: false});
-  }
+   
+  onHandleClick(){
+    BrowerHistory.push('/register');
+    }
   render() {
     return (
       <div>
@@ -30,22 +21,14 @@ class Navbar extends Component {
                 <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7" >
                 </div>
                 
-                <div className="col-xs-1 col-sm-1 col-md-2 col-lg-1"style={{color:'white'}}>
-                <button onClick={this.openModal}> Register</button>
+                <div className="col-xs-1 col-sm-1 col-md-2 col-lg-1" style={{color:'white'}}>
+                <button onClick={this.onHandleClick}> Register</button>
                 </div>
-                <div className="col-xs-1 col-sm-1 col-md-2 col-lg-1"style={{color:'white'}} >
-                <button> Signin</button>
+                <div className="col-xs-1 col-sm-1 col-md-2 col-lg-1" style={{color:'white'}} >
+                <button > Signin</button>
                 </div>
       </div> 
-      <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          contentLabel="Register Modal"
-        >
-          <RegisterPage />
-          
-        </Modal>
+        
       </div>
     );
   }

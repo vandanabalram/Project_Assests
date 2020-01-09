@@ -1,109 +1,116 @@
+// import '../css/Loginfrom.css'
+import BrowserHistory from '../Utils/BrowserHistory';
+// import { success } from '../Action/Loginaction'
+// import { handle } from '../Action/Registeraction'
 import React, { Component } from 'react';
-import '../RegisterPage/RegisterPage.css';
-import '../Utils/BrowserHistory';
-import BrowerHistory from '../Utils/BrowserHistory';
-class LoginPage extends Component {
-constructor() {
-super();
-this.state = {
-fields: {},
-errors: {}
-}
-
-this.handleChange = this.handleChange.bind(this);
-this.submituserRegistrationForm = this.submituserRegistrationForm.bind(this);
-
-};
-
-handleChange(e) {
-let fields = this.state.fields;
-fields[e.target.name] = e.target.value;
-this.setState({
-fields
-});
-
-}
-
-submituserRegistrationForm(e) {
-e.preventDefault();
-if (this.validateForm()) {
-let fields = {};
-fields["Email"] = "";
-fields["password"] = "";
-this.setState({fields:fields});
-alert("Form submitted");
-}
-
-}
-
-validateForm() {
-
-let fields = this.state.fields;
-let errors = {};
-let formIsValid = true;
-
-if (!fields["emailid"]) {
-    formIsValid = false;
-    errors["emailid"] = "*Please enter your email-ID.";
+// import { connect } from 'react-redux';
+import { login } from '../userFunction'
+class Loginform extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      uerr: '',
+      perr: '',
+      usererr:'',
+      pwdrerr:''
     }
-    
-    if (typeof fields["emailid"] !== "undefined") {
-    //regular expression for email validation
-    var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-    if (!pattern.test(fields["emailid"])) {
-    formIsValid = false;
-    errors["emailid"] = "*Please enter valid email-ID.";
+  }
+  onHandleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+  onHandleClick = (e) => {
+    debugger;
+    e.preventDefault();
+    const reqst = {
+      email: this.state.email,
+      password: this.state.password
     }
+    login(reqst).then(res => {
+      console.log(res);
+
+      if (res === "User does not exist") {
+          alert("User dose not exist")
+        
+      }
+      else if ( res === "wrong password") {
+          alert("wrong password")
+        
+      }
+    //   else  
+    //   {
+    //    alert("Login successfully")
+    //     BrowserHistory.push('/booknow');
+    //   }
+    })
+    if (this.state.email.length === 0 && this.state.password.length === 0) {
+      this.setState({
+        uerr: "Email is required",
+        perr: "Password is required"
+      })
     }
+    else if (this.state.email.length === 0) {
+      this.setState({ uerr: "Email is required" })
+    }
+    else if (this.state.password.length === 0) {
+      this.setState({ perr: "Password is required" })
+    }
+    else if (!this.state.email.match(/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]$/)) {
+      this.setState({ uerr: "Please enter the valid email" })
+    }
+    else if (!this.state.password.match(/^[@#][A-Za-z0-9]{9,11}$/)) {
+      this.setState({ perr: "Please enter the strong password" })
+    }
+    // else {
+    //   // BrowserHistory.push('/booknow')
+    // }
 
-if (!fields["password"]) {
-formIsValid = false;
-errors["password"] = "*Please enter your password.";
+  }
+  onHandleClicks = () => {
+    BrowserHistory.push('/')
+    // const loginDetails = { username: this.state.username, password: this.state.password };
+    // this.props.submitLogin(loginDetails);
+  }
+  // componentWillMount() {
+  //   this.props.handle();
+  // }
+
+  render() {
+    return (
+      <div className="login">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4"></div>
+            <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4 frm1">
+              {/* <p>{this.props.message}</p> */}
+
+              <h1>Login</h1>
+              <label ><b>Username</b></label><br />
+              <input type="text" name="email" className="two" onChange={this.onHandleChange} /><br />
+              <p>{this.state.usererr}</p>
+              <p>{this.state.uerr}</p>
+              <label ><b>Password</b></label><br />
+              <input type="password" name="password" className="two" onChange={this.onHandleChange} /><br /><br />
+              <p>{this.state.pwdrerr}</p>
+              <p>{this.state.perr}</p>
+
+              <button onClick={this.onHandleClick} className="btn2"><b>Login</b></button><a href="" onClick={this.onHandleClicks}>Cancel</a>
+            </div>
+            <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
 }
-
-if (typeof fields["password"] !== "undefined") {
-if (!fields["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
-formIsValid = false;
-errors["password"] = "*Please enter secure and strong password.";
-}
-}
-
-this.setState({
-errors: errors
-});
-return formIsValid;
+// const mapStoreToProps = (state) => {
+//   // const { message } = state.Loginreducer;
+//   const { message } = state.Registerreducer;
 
 
-}
+//   return { message };
 
-onHandleClick(){
-BrowerHistory.push('/RegisterPage');
-}
-
-render() {
-return (
-<div id="main-registration-container">
-
-
-<div id="register">
-<h3>Login page</h3>
-<form method="post" name="userRegistrationForm" onSubmit= {this.submituserRegistrationForm} >
-<label>Email ID:</label>
-<input type="text" name="emailid" value={this.state.fields.emailid} onChange={this.handleChange} />
-<div className="errorMsg">{this.state.errors.emailid}</div>
-<label>Password</label>
-<input type="password" name="password" value={this.state.fields.password} onChange={this.handleChange} />
-<div className="errorMsg">{this.state.errors.password}</div>
-<input type="submit" className="button" value="Login"/><br></br>
-</form>
-</div>
-
-</div>
-
-);
-}
-
-
-}
-
-export default LoginPage;
+export default Loginform;

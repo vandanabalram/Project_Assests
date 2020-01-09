@@ -1,62 +1,35 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './Components/HomePage/HomePage';
 import RegisterPage from './Components/RegisterPage/RegisterPage';
 import './App.css';
+import Dashboardpage from './Components/DashboardPage/DashboardPage';
 import LoginPage from './Components/LoginPage/LoginPage';
-import Modal from './Components/Modal/Modal';
+import Navbar from './Components/Navbar/Navbar';
+import AllPost from './Components/AllPost';
+import PostForm from './Components/PostForm'
+// import Desktop from './Components/Desktop/Desktop';
+import Footer from './Components/Footer/Footer';
 
 export default class App extends Component {
   render() {
     return <div className="app">
-      <HomePage/>
-     
+      <Router>
+        <switch>
+          <Route exact path='/' component={HomePage}></Route>
+          <Route exact path='/login' component={LoginPage}></Route>
+          <Route exact path='/dashboard' component={Dashboardpage}></Route>
+          <Route exact path='/navbar' component={Navbar}></Route>
+          <Route exact path='/footer' component={Footer}></Route>
+          <Route exact path='/AllPost' component={AllPost}></Route>
+          <Route exact path='/AllPost' component={PostForm}></Route>
+          {/* <Route exact path='/desktop' component={Desktop}></Route> */}
+          <Route exact path='/register' component={RegisterPage}></Route>
+
+
+
+        </switch>
+      </Router>
     </div>
   }
 }
-// import React, { Component } from 'react';
-
-// import RegisterPage from './Components/RegisterPage/RegisterPage';
-// import modal from './Components/Modal/Modal';
-
-
-// class App extends Component {
-
-
-// 	constructor() {
-// 		super();
-
-// 		this.state = {
-// 			isShowing: false
-// 		}
-// 	}
-
-// 	openModalHandler = () => {
-// 		this.setState({
-// 			isShowing: true
-// 		});
-// 	}
-
-// 	closeModalHandler = () => {
-// 		this.setState({
-// 			isShowing: false
-// 		});
-// 	}
-
-// 	render () {
-// 		return (
-// 			<div>
-// 				{ this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
-
-// 				<button className="open-modal-btn" onClick={this.openModalHandler}>Register</button>
-
-				
-// 					<modal>
-// 						{/* <RegisterPage/> */}
-//             </modal>
-// 			</div>
-// 		);
-// 	}
-// }
-
-// export default App;
-
