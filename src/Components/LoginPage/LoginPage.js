@@ -1,116 +1,137 @@
-// import '../css/Loginfrom.css'
-import BrowserHistory from '../Utils/BrowserHistory';
-// import { success } from '../Action/Loginaction'
-// import { handle } from '../Action/Registeraction'
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-import { login } from '../userFunction'
-class Loginform extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      uerr: '',
-      perr: '',
-      usererr:'',
-      pwdrerr:''
-    }
-  }
-  onHandleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-  onHandleClick = (e) => {
-    debugger;
-    e.preventDefault();
-    const reqst = {
-      email: this.state.email,
-      password: this.state.password
-    }
-    login(reqst).then(res => {
-      console.log(res);
+import { connect } from 'react-redux';
+// import './Register.css';
+import BrowserHistory from '../Utils/BrowserHistory'
+// import Navbar from './Nav/bar';
+// import Footer from './Footer';
+import {registerHandle} from '../../Action/Loginaction';
 
-      if (res === "User does not exist") {
-          alert("User dose not exist")
-        
-      }
-      else if ( res === "wrong password") {
-          alert("wrong password")
-        
-      }
-    //   else  
-    //   {
-    //    alert("Login successfully")
-    //     BrowserHistory.push('/booknow');
-    //   }
-    })
-    if (this.state.email.length === 0 && this.state.password.length === 0) {
-      this.setState({
-        uerr: "Email is required",
-        perr: "Password is required"
-      })
-    }
-    else if (this.state.email.length === 0) {
-      this.setState({ uerr: "Email is required" })
-    }
-    else if (this.state.password.length === 0) {
-      this.setState({ perr: "Password is required" })
-    }
-    else if (!this.state.email.match(/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]$/)) {
-      this.setState({ uerr: "Please enter the valid email" })
-    }
-    else if (!this.state.password.match(/^[@#][A-Za-z0-9]{9,11}$/)) {
-      this.setState({ perr: "Please enter the strong password" })
-    }
-    // else {
-    //   // BrowserHistory.push('/booknow')
-    // }
 
-  }
-  onHandleClicks = () => {
-    BrowserHistory.push('/')
-    // const loginDetails = { username: this.state.username, password: this.state.password };
-    // this.props.submitLogin(loginDetails);
-  }
-  // componentWillMount() {
-  //   this.props.handle();
-  // }
+class LoginPage extends Component {
+constructor(props) {
+super(props);
+this.state = {
 
-  render() {
-    return (
-      <div className="login">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4"></div>
-            <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4 frm1">
-              {/* <p>{this.props.message}</p> */}
+email: '',
+password: '',
+uerr: '',
+perr: '',
 
-              <h1>Login</h1>
-              <label ><b>Username</b></label><br />
-              <input type="text" name="email" className="two" onChange={this.onHandleChange} /><br />
-              <p>{this.state.usererr}</p>
-              <p>{this.state.uerr}</p>
-              <label ><b>Password</b></label><br />
-              <input type="password" name="password" className="two" onChange={this.onHandleChange} /><br /><br />
-              <p>{this.state.pwdrerr}</p>
-              <p>{this.state.perr}</p>
 
-              <button onClick={this.onHandleClick} className="btn2"><b>Login</b></button><a href="" onClick={this.onHandleClicks}>Cancel</a>
-            </div>
-            <div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+
+};
+}
+onHandleChange = (event) => {
+
+this.setState({ [event.target.name]: event.target.value });
 
 }
-// const mapStoreToProps = (state) => {
-//   // const { message } = state.Loginreducer;
-//   const { message } = state.Registerreducer;
+onHandleClicks = (e) => {
+
+BrowserHistory.push('/LoginForm'); 
+
+}
+onHandleClicksCancel = (e) => {
+
+BrowserHistory.push('/LoginForm'); 
+
+}
 
 
-//   return { message };
+onHandleClick = (e) => {
+debugger;
+e.preventDefault();
+const payload = {
+email: this.state.email,
+password: this.state.password,
 
-export default Loginform;
+}
+// signup(reqst).then(res => {
+// if (res.data === "User Created Succesfully") {
+// alert("UserCreated Successfully")
+// BrowserHistory.push('/login')
+// }
+
+// })
+
+if (this.state.email.length === 0 && this.state.password.length === 0 ) {
+this.setState({
+
+uerr: "Email is required",
+perr: "Password is required",
+
+
+})
+}
+
+else if (this.state.email.length === 0) {
+this.setState({ uerr: "Username is required" })
+}
+else if (this.state.password.length === 0) {
+this.setState({ perr: "Password is required" })
+}
+
+
+else if (!this.state.email.match(/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]$/)) {
+this.setState({ uerr: "Please enter the valid email" })
+}
+else if (!this.state.password.match(/^[@#][A-Za-z0-9]{9,11}$/)) {
+this.setState({ perr: "Please enter the valid password" })
+}
+
+// else {
+// BrowserHistory.push('/LoginForm')
+// this.Loginaction.props.success("Register Successfully")
+// }
+this.props.registerHandle(payload);
+// BrowserHistory.push('/login')
+// const url = "http://localhost:4013/Signup"
+// return axios({
+// method: 'POST',
+// url,
+// data: reqst
+// }).then(async (res) => {
+// console.log(res);
+// BrowserHistory.push('/login')
+// })
+
+}
+
+
+render() {
+return (
+<div className="register">
+<div class="container">
+<div class="row">
+<div class="col-sm-4 col-lg-4 col-md-4 col-xs-4"></div>
+<div class="col-sm-4 col-lg-4 col-md-4 col-xs-4 frm">
+<h1>Signin</h1>
+<div className="regcont">
+
+
+<div><label ><b>Email</b></label><br /></div>
+<div> <input type="text" name="email" className="one" onChange={this.onHandleChange} /><br /></div>
+<div> <p >{this.state.uerr}</p></div>
+<div><label ><b>Password</b></label><br /></div>
+<div> <input type="password" name="password" className="one" onChange={this.onHandleChange} /><br /><br /></div>
+<div> <p >{this.state.perr}</p></div>
+
+</div>
+{/* <a href="" onClick={this.onHandleClicks}>you have already account</a>
+<p >{this.state.phnerr}</p> */}
+<button onClick={this.onHandleClick} className="btn1"><b>Signin</b></button><a href="" onClick={this.onHandleClicksCancel}>Cancel</a>
+</div>
+<div class="col-sm-4 col-lg-4 col-md-4 col-xs-4">
+</div>
+</div>
+</div>
+
+</div>
+);
+}
+}
+const mapStateToProps=(state)=>{
+const {email,password }=state.Loginreducer
+return {email,password}
+}
+export default connect(mapStateToProps,{registerHandle}) (LoginPage);
