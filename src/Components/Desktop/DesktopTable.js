@@ -3,7 +3,10 @@ import {Form} from 'react-bootstrap';
 import './DesktopTable.css';
 import axios from 'axios';
 import browserHistory from '../Utils/BrowserHistory';
-export default class DesktopTable extends Component {
+import {questionHandle} from '../../Action/DesktopAction'
+import { connect } from 'react-redux';
+
+class DesktopTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,27 +46,18 @@ onChangeComment=(e)=> {
   })  
 }
   onSubmit=(e)=> {
+    debugger
       e.preventDefault();
-      const obj = {
+      const payload = {
      Employee_Id: this.state.Employee_Id,
      Assest_Number : this.state.Assest_Number,
      Name: this.state.Name,
      MAC_Address: this.state.MAC_Address,
      Comment: this.state.Comment,
-
-
     };
-  axios.post('http://localhost:3001/appt', obj)
-    .then(res => console.log(res.data));
-      this.setState({
-        Employee_Id: '',
-        Assest_Number: '',
-        Name:'',
-        MAC_Address:'',
-        Comment:''
-
-    })
-    browserHistory.push('./desktopform');
+ 
+      this.props.questionHandle(payload);
+      browserHistory.push('./desktopform'); 
   }
 
   render() {
@@ -121,7 +115,7 @@ onChangeComment=(e)=> {
                       />
                   </div>
                 <div className="form-group">
-                    <button type="submit" value="send" className="sendbta" >Send</button>
+                    <button type="submit" value="send" className="sendbta" onClick={this.onSubmit}>Send</button>
                     <button type="submit" className="resetbta">Reset</button> 
               </div>
                 </form>
@@ -131,3 +125,13 @@ onChangeComment=(e)=> {
     )
   }
 }
+const mapStateToProps=(state)=>{
+  const {Employee_Id}=state.Desktopreducer
+  const {Assest_Number}=state.Desktopreducer
+  const {Name}=state.Desktopreducer
+  const {MAC_Address}=state.Desktopreducer
+  const {Comment}=state.Desktopreducer
+  
+  return {Employee_Id,Assest_Number,Name,MAC_Address,Comment}
+  }
+  export default connect(mapStateToProps,{questionHandle}) (DesktopTable);

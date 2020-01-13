@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import {Form} from 'react-bootstrap';
+import './LaptopTable.css';
 import axios from 'axios';
 import browserHistory from '../Utils/BrowserHistory';
-import './LaptopTable.css';
-export default class LaptopTable extends Component {
+import {questionHandle} from '../../Action/LaptopAction'
+import { connect } from 'react-redux';
+
+class LaptopTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
       Employee_Id: '',
-      Assest_Number: '',
+      Asset_Number: '',
       Name: '',
       MAC_Address:'',
       ChargerAssest_Number:'',
@@ -23,9 +26,9 @@ export default class LaptopTable extends Component {
       Employee_Id: e.target.value
     });
   }
-  onChangeAssest_Number=(e)=> {
+  onChangeAsset_Number=(e)=> {
       this.setState({
-        Assest_Number: e.target.value
+        Asset_Number: e.target.value
     })  
   }
   onChangeName=(e)=> {
@@ -39,9 +42,9 @@ onChangeMAC_Address=(e)=> {
   })  
 }
 onChangeChargerAssest_Number=(e)=> {
-    this.setState({
-        ChargerAssest_Number: e.target.value
-  })  
+  this.setState({
+    ChargerAssest_Number: e.target.value
+})  
 }
 onChangeComment=(e)=> {
     this.setState({
@@ -49,33 +52,23 @@ onChangeComment=(e)=> {
   })  
 }
   onSubmit=(e)=> {
+    debugger
       e.preventDefault();
-      const obj = {
+      const payload = {
      Employee_Id: this.state.Employee_Id,
-     Assest_Number : this.state.Assest_Number,
+     Asset_Number : this.state.Asset_Number,
      Name: this.state.Name,
      MAC_Address: this.state.MAC_Address,
-     ChargerAssest_Number: this.state.ChargerAssest_Number,
+     ChargerAssest_Number:this.state.ChargerAssest_Number,
      Comment: this.state.Comment,
-
-
     };
-  axios.post('http://localhost:3001/appt', obj)
-    .then(res => console.log(res.data));
-      this.setState({
-        Employee_Id: '',
-        Assest_Number: '',
-        Name:'',
-        MAC_Address:'',
-        ChargerAssest_Number:'',
-        Comment:''
-
-    })
-    browserHistory.push('./laptopform');
+ 
+      this.props.questionHandle(payload);
+      browserHistory.push('./Laptopform'); 
   }
 
   render() {
-    const {Employee_Id, Assest_Number,Name,MAC_Address,Comment } = this.state 
+    const {Employee_Id, Asset_Number,Name,MAC_Address,ChargerAssest_Number,Comment } = this.state 
     return (
       <div>
    
@@ -97,11 +90,11 @@ onChangeComment=(e)=> {
                     />
                   </div>
                   <div>
-                    <label>Assest_Number </label>
+                    <label>Asset_Number </label>
                       <input type="text" 
                         className="width"
-                        value={this.state.Assest_Number}
-                        onChange={this.onChangeAssest_Number}
+                        value={this.state.Asset_Number}
+                        onChange={this.onChangeAsset_Number}
                       />
                   </div>
                   <div>
@@ -121,7 +114,7 @@ onChangeComment=(e)=> {
                       />
                   </div>
                   <div>
-                    <label> ChargerAssest_Number</label>
+                    <label>ChargerAssest_Number</label>
                       <input type="text" 
                         className="width"
                         value={this.state.ChargerAssest_Number}
@@ -137,8 +130,8 @@ onChangeComment=(e)=> {
                       />
                   </div>
                 <div className="form-group">
-                    <button type="submit" value="send" className="sendbta" >Send</button>
-                    <button type="submit" className="resetbta">Cancel</button> 
+                    <button type="submit" value="send" className="sendbta" onClick={this.onSubmit}>Send</button>
+                    <button type="submit" className="resetbta">Reset</button> 
               </div>
                 </form>
       </div>
@@ -147,3 +140,14 @@ onChangeComment=(e)=> {
     )
   }
 }
+const mapStateToProps=(state)=>{
+  const {Employee_Id}=state.Laptopreducer
+  const {Asset_Number}=state.Laptopreducer
+  const {Name}=state.Laptopreducer
+  const {MAC_Address}=state.Laptopreducer
+  const {ChargerAssest_Number}=state.Laptopreducer
+  const {Comment}=state.Laptopreducer
+  
+  return {Employee_Id,Asset_Number,Name,MAC_Address,ChargerAssest_Number,Comment}
+  }
+  export default connect(mapStateToProps,{questionHandle}) (LaptopTable);

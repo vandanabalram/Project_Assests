@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import './Register.css';
 import BrowserHistory from '../Utils/BrowserHistory'
-// import Navbar from './Nav/bar';
-// import Footer from './Footer';
 import {registerHandle} from '../../Action/Loginaction';
-
-
 class LoginPage extends Component {
 constructor(props) {
 super(props);
@@ -28,12 +23,12 @@ this.setState({ [event.target.name]: event.target.value });
 }
 onHandleClicks = (e) => {
 
-BrowserHistory.push('/LoginForm'); 
+BrowserHistory.push('/login'); 
 
 }
 onHandleClicksCancel = (e) => {
 
-BrowserHistory.push('/LoginForm'); 
+BrowserHistory.push('/login'); 
 
 }
 

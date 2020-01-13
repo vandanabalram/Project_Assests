@@ -33,14 +33,7 @@ export default class App extends Component {
           <Route exact path='/laptopform' component={LaptopForm}></Route>
           <Route exact path='/miscellaneoustable' component={MiscellaneousTable}></Route>
           <Route exact path='/miscellaneousform' component={MiscellaneousForm}></Route>
-          
-
-          
-
-
-
-
-
+        
         </switch>
       </Router>
     

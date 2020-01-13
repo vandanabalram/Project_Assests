@@ -16,15 +16,11 @@ delete() {
   render() {
     return (
         <tr>
+          
           <td>
-            {this.props.obj.Employee_Id}
+            {this.props.obj.Asset_Number}
           </td>
-          <td>
-            {this.props.obj.Assest_Number}
-          </td>
-          <td>
-            {this.props.obj.Name}
-          </td>
+          
           <td>
             {this.props.obj.MAC_Address}
           </td>

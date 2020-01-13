@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import TableRowlap from './TableRowlap';
-// import './CSS/Schedule.css';
-// import Navbar from './Navbar';
+
 
 
 export default class LaptopForm extends Component {
@@ -12,8 +11,10 @@ export default class LaptopForm extends Component {
       this.state = {Users: []};
     }
     componentDidMount(){
-      axios.get('http://localhost:3001/appt')
+      debugger;
+      axios.get('http://localhost:3001/Laptop')
         .then(response => {
+          debugger
           this.setState({ Users: response.data });
         })
         .catch(function (error) {
@@ -33,20 +34,17 @@ export default class LaptopForm extends Component {
             <div className="row1">
                 <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
                 <div className="col-xs-10 col-sm-10 col-md-10 col-lg-10 schp">
-                {/* <div className='schname'><i>Schedule</i></div> */}
                 <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
                 </div>
             </div>
-          {/* <p className="schl">Schedule List</p> */}
           <table className="table table-striped" style={{ marginTop: 20 }}>
             <thead>
               <tr>
                 <th>Employee_Id</th>
-                <th>Assest_Number</th>
+                <th>Asset_Number</th>
                 <th>Name</th>
                 <th>MAC_Address</th>
                 <th>ChargerAssest_Number</th>
-
                 <th>Comment</th>
                 <th colSpan="2">Action</th>
               </tr>
