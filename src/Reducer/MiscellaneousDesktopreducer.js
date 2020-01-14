@@ -1,8 +1,8 @@
 const initialState={
-    
-    Asset_Number :'',
+    Assest_Number :'',
+    Desktop:'',
     MAC_Address:'',
-    Comment :''
+  
     }
     
     export default(state = initialState,action)=>{
@@ -12,9 +12,10 @@ const initialState={
     case "REGISTER":{
     return{...state,
    
-    Asset_Number :action.payload.Asset_Number ,
+    Assest_Number :action.payload.Assest_Number ,
+    Desktop :action.payload.Desktop ,
     MAC_Address :action.payload.MAC_Address ,
-    Comment:action.payload.Comment   
+   
     }
     }
     default:

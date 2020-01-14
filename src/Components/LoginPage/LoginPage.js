@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BrowserHistory from '../Utils/BrowserHistory'
-import {registerHandle} from '../../Action/Loginaction';
+import {loginHandle} from '../../Action/Loginaction';
 class LoginPage extends Component {
 constructor(props) {
 super(props);
@@ -28,7 +28,7 @@ BrowserHistory.push('/login');
 }
 onHandleClicksCancel = (e) => {
 
-BrowserHistory.push('/login'); 
+BrowserHistory.push('/'); 
 
 }
 
@@ -78,7 +78,7 @@ this.setState({ perr: "Please enter the valid password" })
 // BrowserHistory.push('/LoginForm')
 // this.Loginaction.props.success("Register Successfully")
 // }
-this.props.registerHandle(payload);
+this.props.loginHandle(payload);
 // BrowserHistory.push('/login')
 // const url = "http://localhost:4013/Signup"
 // return axios({
@@ -129,4 +129,4 @@ const mapStateToProps=(state)=>{
 const {email,password }=state.Loginreducer
 return {email,password}
 }
-export default connect(mapStateToProps,{registerHandle}) (LoginPage);
+export default connect(mapStateToProps,{loginHandle}) (LoginPage);

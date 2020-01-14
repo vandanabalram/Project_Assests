@@ -7,7 +7,7 @@ const initialState={
     debugger
     switch(action.type){
     
-    case "REGISTER":{
+    case "LOGIN":{
     return{...state,
    
     email:action.payload.email,

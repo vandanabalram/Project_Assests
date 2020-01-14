@@ -1,8 +1,8 @@
 import axios from 'axios'
 export function questionHandle(payload){
-debugger;
+
 const options = {
-url: 'http://localhost:3001/Miscellaneous',
+url: 'http://localhost:3001/MiscellaneousDesktop',
 method: 'POST',
 data: payload
 };

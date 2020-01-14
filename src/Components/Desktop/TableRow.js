@@ -20,7 +20,7 @@ delete() {
             {this.props.obj.Employee_Id}
           </td>
           <td>
-            {this.props.obj.Assest_Number}
+            {this.props.obj.Asset_Number}
           </td>
           <td>
             {this.props.obj.Name}

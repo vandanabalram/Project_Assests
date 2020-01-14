@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import TableRow from './TableRow';
-import './DesktopForm.css';
-
-
-export default class DesktopForm extends Component {
+import TableRowMisdesk from './TableRowMisdesk';
+export default class MiscellaneousDesktopForm extends Component {
   constructor(props) {
     super(props);
     this.state = { Users: [] };
   }
   componentDidMount() {
     debugger;
-    axios.get('http://localhost:3001/Desktop')
+    axios.get('http://localhost:3001/MiscellaneousDesktop')
       .then(response => {
         debugger
         this.setState({ Users: response.data });
@@ -22,7 +19,7 @@ export default class DesktopForm extends Component {
   }
   tabRow() {
     return this.state.Users.map(function (object, i) {
-      return <TableRow obj={object} key={i} />;
+      return <TableRowMisdesk obj={object} key={i} />;
     });
   }
 
@@ -33,11 +30,10 @@ export default class DesktopForm extends Component {
         <table className="table table-striped" style={{ marginTop: 60 }}>
           <thead>
             <tr>
-              <th>Employee_Id</th>
+              
               <th>Asset_Number</th>
-              <th>Name</th>
+              <th>Desktop</th>
               <th>MAC_Address</th>
-              <th>Comment</th>
               <th colSpan="2">Action</th>
             </tr>
           </thead>

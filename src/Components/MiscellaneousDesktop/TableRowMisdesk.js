@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class TableRowMiscellaneous extends Component {
+class  TableRowlapMisdesk extends Component {
   constructor(props) {
     super(props);
     this.delete = this.delete.bind(this);
@@ -16,17 +16,17 @@ delete() {
   render() {
     return (
         <tr>
-          
+         
           <td>
-            {this.props.obj.Asset_Number}
+            {this.props.obj. Asset_Number}
           </td>
-          
+          <td>
+            {this.props.obj.Desktop}
+          </td>
           <td>
             {this.props.obj.MAC_Address}
           </td>
-          <td>
-            {this.props.obj.Comment}
-          </td>
+         
           <td>
             <button className="btn btn-primary">Edit</button>
           </td>
@@ -38,4 +38,4 @@ delete() {
   }
 }
 
-export default TableRowMiscellaneous;
+export default TableRowlapMisdesk;

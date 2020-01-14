@@ -11,8 +11,9 @@ import DesktopTable from './Components/Desktop/DesktopTable';
 import DesktopForm from './Components/Desktop/DesktopForm';
 import LaptopTable from './Components/Laptop/LaptopTable';
 import LaptopForm from './Components/Laptop/LaptopForm';
-import MiscellaneousTable from './Components/Miscellaneous/MiscellaneousTable';
-import MiscellaneousForm from './Components/Miscellaneous/MiscellaneousForm';
+import Miscellaneousindex from './Components/Miscellaneous/Miscellaneousindex';
+import MiscellaneousDesktopTable from './Components/MiscellaneousDesktop/MiscellaneousDesktopTable';
+import MiscellaneousDesktopForm from './Components/MiscellaneousDesktop/MiscellaneousDesktopForm';
 
 
 
@@ -31,8 +32,10 @@ export default class App extends Component {
           <Route exact path='/desktopform' component={DesktopForm}></Route>
           <Route exact path='/laptoptable' component={LaptopTable}></Route>
           <Route exact path='/laptopform' component={LaptopForm}></Route>
-          <Route exact path='/miscellaneoustable' component={MiscellaneousTable}></Route>
-          <Route exact path='/miscellaneousform' component={MiscellaneousForm}></Route>
+          <Route exact path='/miscellaneousindex' component={Miscellaneousindex}></Route>
+          <Route exact path='/miscellaneousdesktoptable' component={MiscellaneousDesktopTable}></Route>
+          <Route exact path='/miscellaneousdesktopform' component={MiscellaneousDesktopForm}></Route>
+          
         
         </switch>
       </Router>

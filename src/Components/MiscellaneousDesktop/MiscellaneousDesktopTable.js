@@ -1,38 +1,32 @@
 import React, { Component } from 'react';
 import {Form, Navbar} from 'react-bootstrap';
-import './DesktopTable.css';
+// import './DesktopTable.css';
 import axios from 'axios';
 import browserHistory from '../Utils/BrowserHistory';
-import {questionHandle} from '../../Action/DesktopAction'
+import {questionHandle} from '../../Action/MiscellaneousDesktopAction'
 import { connect } from 'react-redux';
 
-class DesktopTable extends Component {
+class MiscellaneousDesktopTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Employee_Id: '',
       Asset_Number: '',
-      Name: '',
+      Desktop: '',
       MAC_Address:'',
-      Comment:''
     }
   }
   handleChangeg=(e)=>{
       this.setState({[e.target.name]:e.target.value});
   }
-  onChangeEmployee_Id=(e)=> {
-      this.setState({
-      Employee_Id: e.target.value
-    });
-  }
+  
   onChangeAsset_Number=(e)=> {
       this.setState({
         Asset_Number: e.target.value
     })  
   }
-  onChangeName=(e)=> {
+  onChangeDesktop=(e)=> {
     this.setState({
-        Name: e.target.value
+        Desktop: e.target.value
   })  
 }
 onChangeMAC_Address=(e)=> {
@@ -40,42 +34,28 @@ onChangeMAC_Address=(e)=> {
         MAC_Address: e.target.value
   })  
 }
-onChangeComment=(e)=> {
-    this.setState({
-    Comment: e.target.value
-  })  
-}
+
   onSubmit=(e)=> {
     debugger
       e.preventDefault();
       const payload = {
-     Employee_Id: this.state.Employee_Id,
      Asset_Number: this.state.Asset_Number,
-     Name: this.state.Name,
+     Desktop: this.state.Desktop,
      MAC_Address: this.state.MAC_Address,
-     Comment: this.state.Comment,
+    
     };
  
       this.props.questionHandle(payload);
-      browserHistory.push('./desktopform'); 
+      browserHistory.push('./miscellaneousdesktopform'); 
   }
 
   render() {
-    const {Employee_Id, Asset_Number,Name,MAC_Address,Comment } = this.state 
+    const { Asset_Number, Desktop,MAC_Address } = this.state 
     return (
       <div >
           
             <div className="desktopimg" style={{ marginTop: 10 }}>
-                <form onSubmit={this.onSubmit} className="deskform">
-                  <div>
-                    <label className="name">Employee_Id:</label>
-                      <input 
-                        type="text" 
-                        className="width" 
-                        value={this.state.Employee_Id}
-                        onChange={this.onChangeEmployee_Id}
-                    />
-                  </div>
+                <form onSubmit={this.onSubmit} className="deskform"> 
                   <div>
                     <label className="name">Asset_Number: </label>
                       <input type="text" 
@@ -85,11 +65,11 @@ onChangeComment=(e)=> {
                       />
                   </div>
                   <div>
-                    <label className="name">Name: </label>
+                    <label className="name"> Desktop: </label>
                       <input type="text" 
                         className="width"
-                        value={this.state.Name}
-                        onChange={this.onChangeName}
+                        value={this.state.Desktop}
+                        onChange={this.onChangeDesktop}
                       />
                   </div>
                   <div>
@@ -100,17 +80,9 @@ onChangeComment=(e)=> {
                         onChange={this.onChangeMAC_Address}
                       />
                   </div>
-                  <div>
-                    <label className="name"> Comment:</label>
-                      <input type="text" 
-                        className="width"
-                        value={this.state.Comment }
-                        onChange={this.onChangeComment}
-                      />
-                  </div>
                 <div className="form-group">
                     <button type="submit" value="send" className="sendbta" onClick={this.onSubmit}>Send</button>
-                    <button type="submit" className="resetbta">Reset</button> 
+                    <button type="submit" className="resetbta">Cancel</button> 
               </div>
                 </form>
       </div>
@@ -120,12 +92,11 @@ onChangeComment=(e)=> {
   }
 }
 const mapStateToProps=(state)=>{
-  const {Employee_Id}=state.Desktopreducer
-  const {Asset_Number}=state.Desktopreducer
-  const {Name}=state.Desktopreducer
-  const {MAC_Address}=state.Desktopreducer
-  const {Comment}=state.Desktopreducer
+  const {Asset_Number}=state.MiscellaneousDesktopreducer
+  const { Desktop}=state.MiscellaneousDesktopreducer
+  const {MAC_Address}=state.MiscellaneousDesktopreducer
   
-  return {Employee_Id,Asset_Number,Name,MAC_Address,Comment}
+  
+  return {Asset_Number,Desktop,MAC_Address,}
   }
-  export default connect(mapStateToProps,{questionHandle}) (DesktopTable);
+  export default connect(mapStateToProps,{questionHandle}) (MiscellaneousDesktopTable);
